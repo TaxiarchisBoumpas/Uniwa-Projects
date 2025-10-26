@@ -1,0 +1,110 @@
+ΤΑΞΙΑΡΧΗΣ ΜΠΟΥΜΠΑΣ
+21390151
+
+1)
+SELECT ENAME "ΕΠΩΝΥΜΟ", DEPTNO "ΤΜΗΜΑ"
+    -> FROM EMP
+    -> WHERE DEPTNO=10
+    -> ORDER BY IFNULL(COMM,0);
++---------+-------+
+| ΕΠΩΝΥΜΟ | ΤΜΗΜΑ |
++---------+-------+
+| ELMASRI |    10 |
+| DATE    |    10 |
++---------+-------+
+
+2)
+SELECT ENAME, JOB, SAL
+    -> FROM EMP
+    -> ORDER BY JOB ASC, SAL DESC;
++---------+------------+------+
+| ENAME   | JOB        | SAL  |
++---------+------------+------+
+| CODD    | ANALYST    | 3000 |
+| ELMASRI | ANALYST    | 1200 |
+| DATE    | PROGRAMMER | 1800 |
+| NAVATHE | SALESMAN   | 2000 |
++---------+------------+------+
+
+3)
+SELECT AVG(SAL) AS "ΜΕΣΟΣ ΟΡΟΣ"
+    -> FROM EMP
+    -> GROUP BY DEPTNO;
++-------------+
+| ΜΕΣΟΣ ΟΡΟΣ  |
++-------------+
+| 3000.000000 |
+| 1500.000000 |
+| 2000.000000 |
++-------------+
+
+4)
+SELECT DEPTNO AS ΤΜΗΜΑ, AVG(YEAR('2023-01-01')-YEAR(HIREDATE)) AS "ΠΡΟΫΠΗΡΕΣΙΑ(έτη)"
+    -> FROM EMP
+    -> GROUP BY DEPTNO;
++-------+------------------+
+| ΤΜΗΜΑ | ΠΡΟΫΠΗΡΕΣΙΑ(έτη) |
++-------+------------------+
+|       |                  |
+|    10 |          23.5000 |
+|    20 |          46.0000 |
++-------+------------------+
+
+5)
+SELECT PROJ.PNAME, EMP.ENAME, EMP.JOB
+    -> FROM EMP, PROJ, ASSIGN
+    -> WHERE ASSIGN.EMPNO=EMP.EMPNO AND
+    -> ASSIGN.PROJNO=PROJ.PROJNO
+    -> ORDER BY PROJ.PNAME, EMP.JOB;
++-----------+---------+------------+
+| PNAME     | ENAME   | JOB        |
++-----------+---------+------------+
+| PAYROLL   | CODD    | ANALYST    |
+| PAYROLL   | ELMASRI | ANALYST    |
+| PAYROLL   | DATE    | PROGRAMMER |
+| PERSONNEL | CODD    | ANALYST    |
+| PERSONNEL | NAVATHE | SALESMAN   |
++-----------+---------+------------+
+
+
+6)
+
+SELECT DEPT.DNAME "DEPARTMENT", X.ENAME "MANAGER", EMP.ENAME "EMPLOYEE"
+    -> FROM EMP X, EMP, DEPT
+    -> WHERE X.EMPNO=EMP.MGR AND
+    -> EMP.DEPTNO=DEPT.DEPTNO
+    -> ORDER BY DEPT.DNAME, EMP.ENAME;
++------------+---------+----------+
+| DEPARTMENT | MANAGER | EMPLOYEE |
++------------+---------+----------+
+| ACCOUNTING | ELMASRI | DATE     |
+| ACCOUNTING | ELMASRI | ELMASRI  |
+| RESEARCH   | NAVATHE | NAVATHE  |
++------------+---------+----------+
+
+7) 
+SELECT EMP.ENAME, EMP.JOB, DEPT.LOC
+    -> FROM EMP JOIN DEPT ON EMP.DEPTNO=DEPT.DEPTNO
+    -> WHERE DEPT.DNAME='RESEARCH';
++---------+----------+--------+
+| ENAME   | JOB      | LOC    |
++---------+----------+--------+
+| NAVATHE | SALESMAN | DALLAS |
++---------+----------+--------+
+
+
+8)
+
+SELECT EMP.ENAME, PROJ.PNAME
+    -> FROM EMP, ASSIGN, PROJ
+    -> WHERE EMP.EMPNO=ASSIGN.EMPNO AND
+    -> PROJ.PROJNO=ASSIGN.PROJNO AND (PTIME>50 AND PNAME='PAYROLL');
++---------+---------+
+| ENAME   | PNAME   |
++---------+---------+
+| ELMASRI | PAYROLL |
+| DATE    | PAYROLL |
++---------+---------+
+
+
+
