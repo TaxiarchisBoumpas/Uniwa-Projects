@@ -1,0 +1,190 @@
+Ονοματεπώνυμο: Ταξιάρχης Μπούμπας
+ΑΜ: 21390151
+Εργασία 1
+Βάσεις Δεδομένων 2
+
+
+ΕΡΩΤΗΜΑ 1)
+ΕΝΤΟΛΗ : "C:\xampp\mysql\bin\mysql.exe" --default-character-set=utf8mb4 -u root -p
+
+ΕΡΩΤΗΜΑ 2)
+ΕΝΤΟΛΗ : show databases;
+ΑΠΟΤΕΛΕΣΜΑ :
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| new_personnel      |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.029 sec)
+ΕΝΤΟΛΗ :create database personnel;
+ΑΠΟΤΕΛΕΣΜΑ :Query OK, 1 row affected (0.002 sec)
+
+ΕΡΩΤΗΜΑ 3)
+ΕΝΤΟΛΗ :use personnel;
+ΑΠΟΤΕΛΕΣΜΑ :Database changed
+
+ΕΡΩΤΗΜΑ 4)
+ΕΝΤΟΛΗ :show tables;
+ΑΠΟΤΕΛΕΣΜΑ :Empty set (0.000 sec)
+
+ΕΡΩΤΗΜΑ 5)
+ΕΝΤΟΛΗ :CREATE TABLE DEPT(
+		 DEPTNO int(2) not null, 
+		 DNAME varchar(30), 
+		 LOC varchar(30),
+		 PRIMARY KEY(DEPTNO));
+ΕΝΤΟΛΗ :  CREATE TABLE EMP (EMPNO INT (2) NOT NULL,
+          NAME VARCHAR (20),
+          JOBNO INT (3),
+          DEPTNO INT (2),
+          COMM NUMERIC (10,2),
+          PRIMARY KEY(EMPNO),
+          FOREIGN KEY(DEPTNO) REFERENCES DEPT(DEPTNO));
+
+ΕΝΤΟΛΗ : CREATE TABLE JOB(JOBCODE INT(3),
+		 JOB_DESCR VARCHAR(24),
+		 SAL NUMERIC (10,2),
+		 PRIMARY KEY(JOBCODE) 
+		 );
+
+ΕΝΤΟΛΗ : INSERT INTO DEPT(DEPTNO, DNAME, LOC)
+		 VALUES (50, 'SALES', 'ATHENS'), 
+            (60, 'ACCOUNTING', 'ATHENS'), 
+            (70, 'PAYROL', 'VOLOS');
+
+ΕΝΤΟΛΗ : INSERT INTO JOB(JOBCODE, JOB_DESCR, SAL)
+		 VALUES (100, 'SALESMAN', 2200), 
+            (200, 'ANALYST', 2000), 
+            (300, 'OPERATOR', 1000); 
+
+ΕΝΤΟΛΗ : INSERT INTO EMP(EMPNO, NAME, JOBNO, DEPTNO, COMM)
+		 VALUES (10, 'SPIROU', 100, 50, 450),
+            (20, 'CHRISTOU', 200, 50, NULL),
+            (30, 'NICK', 300, 60, NULL),
+            (40, 'SPIROU', 200, 50, NULL);
+
+ΕΝΤΟΛΗ : describe DEPT;
+ΑΠΟΤΕΛΕΣΜΑ :
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| DEPTNO | int(2)      | NO   | PRI | NULL    |       |
+| DNAME  | varchar(30) | YES  |     | NULL    |       |
+| LOC    | varchar(30) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.022 sec)
+
+ΕΝΤΟΛΗ : describe JOB;
+ΑΠΟΤΕΛΕΣΜΑ :
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| JOBCODE   | int(3)        | NO   | PRI | NULL    |       |
+| JOB_DESCR | varchar(24)   | YES  |     | NULL    |       |
+| SAL       | decimal(10,2) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+3 rows in set (0.020 sec)
+
+
+ΕΡΩΤΗΜΑ 6)
+ΕΝΤΟΛΗ :ΕΝΤΟΛΗ : SELECT EMPNO, NAME, JOB_DESCR, SAL, DEPTNO 
+		 FROM EMP,JOB
+		 WHERE EMP.JOBNO=JOB.JOBCODE AND JOB_DESCR="SALESMAN";
+ΑΠΟΤΕΛΕΣΜΑ :
++-------+--------+-----------+---------+--------+
+| EMPNO | NAME   | JOB_DESCR | SAL     | DEPTNO |
++-------+--------+-----------+---------+--------+
+|    10 | SPIROU | SALESMAN  | 2200.00 |     50 |
++-------+--------+-----------+---------+--------+
+1 row in set (0.002 sec)
+
+ΕΡΩΤΗΜΑ 7)
+ΕΝΤΟΛΗ :SELECT
+		 MAX(SAL) AS MAX_SALARY,
+		 MIN(SAL) AS MIN_SALARY,
+		 AVG(SAL) AS AVG_SALARY,
+		 COUNT(CASE WHEN SAL > 0 THEN EMPNO END) AS EMPLOYEES_WITH_SALARY,
+		 COUNT(CASE WHEN COMM > 0 THEN EMPNO END) AS EMPLOYEES_WITH_COMM,
+		 COUNT(EMPNO) AS TOTAL_EMPLOYEES
+		 FROM EMP
+		 INNER JOIN JOB ON EMP.JOBNO = JOB.JOBCODE
+		 ;
+ΑΠΟΤΕΛΕΣΜΑ :
++------------+------------+-------------+-----------------------+---------------------+-----------------+
+| MAX_SALARY | MIN_SALARY | AVG_SALARY  | EMPLOYEES_WITH_SALARY | EMPLOYEES_WITH_COMM | TOTAL_EMPLOYEES |
++------------+------------+-------------+-----------------------+---------------------+-----------------+
+|    2200.00 |    1000.00 | 1800.000000 |                     4 |                   1 |               4 |
++------------+------------+-------------+-----------------------+---------------------+-----------------+
+1 row in set (0.001 sec)
+
+ΕΡΩΤΗΜΑ 8)
+ΕΝΤΟΛΗ :SELECT MAX(SAL), AVG(SAL) 
+                 FROM JOB
+		 WHERE JOB_DESCR='ANALYST';
+ΑΠΟΤΕΛΕΣΜΑ :
++----------+-------------+
+| MAX(SAL) | AVG(SAL)    |
++----------+-------------+
+|  2000.00 | 2000.000000 |
++----------+-------------+
+1 row in set (0.000 sec)
+
+ΕΡΩΤΗΜΑ 9)
+ΕΝΤΟΛΗ :SELECT EMPNO, NAME, JOB_DESCR, SAL, DEPTNO
+		 FROM EMP, JOB
+		 WHERE EMP.JOBNO=JOB.JOBCODE AND JOB_DESCR = 'ANALYST' AND SAL >= 1000 AND SAL<= 2500;
+ΑΠΟΤΕΛΕΣΜΑ :
++-------+----------+-----------+---------+--------+
+| EMPNO | NAME     | JOB_DESCR | SAL     | DEPTNO |
++-------+----------+-----------+---------+--------+
+|    20 | CHRISTOU | ANALYST   | 2000.00 |     50 |
+|    40 | SPIROU   | ANALYST   | 2000.00 |     50 |
++-------+----------+-----------+---------+--------+
+2 rows in set (0.000 sec)
+
+ΕΡΩΤΗΜΑ 10)
+ΕΝΤΟΛΗ :SELECT EMPNO, NAME, JOB_DESCR, SAL, DEPTNO
+		 FROM EMP, JOB
+		 WHERE EMP.JOBNO=JOB.JOBCODE AND UPPER(NAME) LIKE '%R%'; 
+ΑΠΟΤΕΛΕΣΜΑ :
++-------+----------+-----------+---------+--------+
+| EMPNO | NAME     | JOB_DESCR | SAL     | DEPTNO |
++-------+----------+-----------+---------+--------+
+|    10 | SPIROU   | SALESMAN  | 2200.00 |     50 |
+|    20 | CHRISTOU | ANALYST   | 2000.00 |     50 |
+|    40 | SPIROU   | ANALYST   | 2000.00 |     50 |
++-------+----------+-----------+---------+--------+
+3 rows in set (0.001 sec)
+
+ΕΡΩΤΗΜΑ 11)
+ΕΝΤΟΛΗ :SELECT EMPNO, NAME, JOB_DESCR, SAL, DEPTNO
+		 FROM EMP, JOB
+		 WHERE EMP.JOBNO=JOB.JOBCODE ORDER BY DEPTNO, SAL;
+ΑΠΟΤΕΛΕΣΜΑ :
++-------+----------+-----------+---------+--------+
+| EMPNO | NAME     | JOB_DESCR | SAL     | DEPTNO |
++-------+----------+-----------+---------+--------+
+|    40 | SPIROU   | ANALYST   | 2000.00 |     50 |
+|    20 | CHRISTOU | ANALYST   | 2000.00 |     50 |
+|    10 | SPIROU   | SALESMAN  | 2200.00 |     50 |
+|    30 | NICK     | OPERATOR  | 1000.00 |     60 |
++-------+----------+-----------+---------+--------+
+4 rows in set (0.001 sec)
+
+ΕΡΩΤΗΜΑ 12)
+ΕΝΤΟΛΗ :SELECT AVG(SAL), COUNT(EMPNO)
+		 FROM EMP, JOB
+		 WHERE EMP.JOBNO=JOB.JOBCODE GROUP BY DEPTNO;
+ΑΠΟΤΕΛΕΣΜΑ :+-------------+--------------+
+| AVG(SAL)    | COUNT(EMPNO) |
++-------------+--------------+
+| 2066.666667 |            3 |
+| 1000.000000 |            1 |
++-------------+--------------+
+2 rows in set (0.000 sec)
+

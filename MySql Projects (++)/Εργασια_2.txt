@@ -1,0 +1,555 @@
+Ονοματεπώνυμο: Ταξιάρχης Μπούμπας
+ΑΜ: 21390151
+Εργασία 2η
+Βάσεις Δεδομένων 2
+
+
+Ερώτημα 1)
+
+ΕΝΤΟΛΗ:"C:\xampp\mysql\bin\mysql.exe" --default-character-set=utf8mb4 -u root -p
+ΑΠΟΤΕΛΕΣΜΑ:
+
+Ερώτημα 2)
+
+ΕΝΤΟΛΗ:drop database if exists personnel;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 3 rows affected (0.042 sec)
+
+ΕΝΤΟΛΗ : create database personnel;
+ΑΠΟΤΕΛΕΣΜΑ:
+Query OK, 1 row affected (0.001 sec)
+
+Ερώτημα 3)
+
+ΕΝΤΟΛΗ:use personnel;
+ΑΠΟΤΕΛΕΣΜΑ:Database changed
+
+Ερώτημα 4)
+
+ΕΝΤΟΛΗ:show tables;
+ΑΠΟΤΕΛΕΣΜΑ:Empty set (0.000 sec)
+
+Ερώτημα 5)
+
+ΕΝΤΟΛΗ:CREATE TABLE DEPT (DEPTNO NUMERIC(2),
+		 DNAME VARCHAR(24),
+		 LOC CHAR(23));
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.011 sec)
+
+ΕΝΤΟΛΗ : DESCRIBE DEPT;
+ΑΠΟΤΕΛΕΣΜΑ:
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| DEPTNO | decimal(2,0) | YES  |     | NULL    |       |
+| DNAME  | varchar(24)  | YES  |     | NULL    |       |
+| LOC    | char(23)     | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+3 rows in set (0.012 sec)
+
+ΕΝΤΟΛΗ : CREATE TABLE JOB(JOBCODE NUMERIC(3),
+		 JOB_DESCR VARCHAR(24),
+		 SAL NUMERIC (10,2));
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 0 rows affected (0.012 sec)
+
+ΕΝΤΟΛΗ : DESCRIBE JOB;
+ΑΠΟΤΕΛΕΣΜΑ: 
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| JOBCODE   | decimal(3,0)  | YES  |     | NULL    |       |
+| JOB_DESCR | varchar(24)   | YES  |     | NULL    |       |
+| SAL       | decimal(10,2) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+3 rows in set (0.014 sec)
+
+ΕΝΤΟΛΗ : CREATE TABLE EMP (EMPNO NUMERIC (4) NOT NULL,
+		 NAME VARCHAR (20),
+		 JOBNO NUMERIC(3),
+		 DEPTNO NUMERIC (2),
+		 COMM NUMERIC (10,2));
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 0 rows affected (0.009 sec)
+
+ΕΝΤΟΛΗ : DESCRIBE EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| EMPNO  | decimal(4,0)  | NO   |     | NULL    |       |
+| NAME   | varchar(20)   | YES  |     | NULL    |       |
+| JOBNO  | decimal(3,0)  | YES  |     | NULL    |       |
+| DEPTNO | decimal(2,0)  | YES  |     | NULL    |       |
+| COMM   | decimal(10,2) | YES  |     | NULL    |       |
++--------+---------------+------+-----+---------+-------+
+5 rows in set (0.015 sec)
+
+
+Ερώτημα 6)
+
+ΕΝΤΟΛΗ:INSERT INTO DEPT(DEPTNO, DNAME, LOC)
+         VALUES (50, 'SALES', 'ATHENS'),
+                (60, 'ACCOUNTING', 'ATHENS'),
+                (70, 'PAYROL', 'VOLOS');
+
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 3 rows affected (0.004 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : SELECT * FROM DEPT;
+ΑΠΟΤΕΛΕΣΜΑ:
++--------+------------+--------+
+| DEPTNO | DNAME      | LOC    |
++--------+------------+--------+
+|     50 | SALES      | ATHENS |
+|     60 | ACCOUNTING | ATHENS |
+|     70 | PAYROL     | VOLOS  |
++--------+------------+--------+
+3 rows in set (0.001 sec)
+
+ΕΝΤΟΛΗ : INSERT INTO JOB(JOBCODE, JOB_DESCR, SAL)
+         VALUES (100, 'SALESMAN', 2000),
+                (200, 'ANALYST', 2000),
+                (300, 'DBA', 3000);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 3 rows affected (0.003 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : SELECT * FROM JOB;
+ΑΠΟΤΕΛΕΣΜΑ:
++---------+-----------+---------+
+| JOBCODE | JOB_DESCR | SAL     |
++---------+-----------+---------+
+|     100 | SALESMAN  | 2000.00 |
+|     200 | ANALYST   | 2000.00 |
+|     300 | DBA       | 3000.00 |
++---------+-----------+---------+
+3 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : INSERT INTO EMP(EMPNO, NAME, JOBNO, DEPTNO, COMM)
+         VALUES (10, 'CODD', 100, 50, NULL),
+                (20, 'NAVATHE', 200, 50, 450),
+                (30, 'ELMASRI', 300, 60, NULL),
+                (40, 'DATE', 100, 50, NULL);
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 4 rows affected (0.006 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : SELECT * FROM EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   |
++-------+---------+-------+--------+--------+
+|    10 | CODD    |   100 |     50 |   NULL |
+|    20 | NAVATHE |   200 |     50 | 450.00 |
+|    30 | ELMASRI |   300 |     60 |   NULL |
+|    40 | DATE    |   100 |     50 |   NULL |
++-------+---------+-------+--------+--------+
+4 rows in set (0.000 sec)
+
+
+Ερώτημα 7)
+
+ΕΝΤΟΛΗ: ALTER TABLE EMP ADD HIREDATE DATE;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.006 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : DESCRIBE EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| EMPNO    | decimal(4,0)  | NO   |     | NULL    |       |
+| NAME     | varchar(20)   | YES  |     | NULL    |       |
+| JOBNO    | decimal(3,0)  | YES  |     | NULL    |       |
+| DEPTNO   | decimal(2,0)  | YES  |     | NULL    |       |
+| COMM     | decimal(10,2) | YES  |     | NULL    |       |
+| HIREDATE | date          | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.013 sec)
+
+Ερώτημα 8)
+
+ΕΝΤΟΛΗ:UPDATE EMP SET HIREDATE='2001-01-10' WHERE EMPNO=10;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ΕΝΤΟΛΗ : UPDATE EMP SET HIREDATE='1999-02-25' WHERE EMPNO=20;
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ΕΝΤΟΛΗ : UPDATE EMP SET HIREDATE='2000-03-17' WHERE EMPNO=30;
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ΕΝΤΟΛΗ : UPDATE EMP SET HIREDATE='1989-06-07' WHERE EMPNO=40;
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ΕΝΤΟΛΗ : SELECT * FROM EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
++-------+---------+-------+--------+--------+------------+
+4 rows in set (0.001 sec)
+
+Ερώτημα 9)
+
+ΕΝΤΟΛΗ:ALTER TABLE JOB MODIFY JOB_DESCR VARCHAR(30);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.005 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : DESCRIBE JOB;
+ΑΠΟΤΕΛΕΣΜΑ:
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| JOBCODE   | decimal(3,0)  | YES  |     | NULL    |       |
+| JOB_DESCR | varchar(30)   | YES  |     | NULL    |       |
+| SAL       | decimal(10,2) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+3 rows in set (0.013 sec)
+
+Ερώτημα 10)
+
+ΕΝΤΟΛΗ:ALTER TABLE DEPT DROP loc;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.007 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : DESCRIBE DEPT;
+ΑΠΟΤΕΛΕΣΜΑ: 
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| DEPTNO | decimal(2,0) | YES  |     | NULL    |       |
+| DNAME  | varchar(24)  | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+2 rows in set (0.012 sec)
+
+Ερώτημα 11)
+
+ΕΝΤΟΛΗ:ALTER TABLE DEPT CHANGE DNAME DEPT_NAME VARCHAR(25);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.006 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : DESCRIBE DEPT;
+ΑΠΟΤΕΛΕΣΜΑ: 
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| DEPTNO    | decimal(2,0) | YES  |     | NULL    |       |
+| DEPT_NAME | varchar(25)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+2 rows in set (0.017 sec)
+
+Ερώτημα 12)
+
+ΕΝΤΟΛΗ:ALTER TABLE DEPT
+		 ADD CONSTRAINT pk_DEPTNO PRIMARY KEY (DEPTNO);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected, 1 warning (0.043 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+ΕΝΤΟΛΗ : DESCRIBE DEPT;
+ΑΠΟΤΕΛΕΣΜΑ:
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| DEPTNO    | decimal(2,0) | NO   | PRI | NULL    |       |
+| DEPT_NAME | varchar(25)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+2 rows in set (0.011 sec)
+
+Ερώτημα 13)
+
+ΕΝΤΟΛΗ:ALTER TABLE DEPT DROP PRIMARY KEY;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 3 rows affected (0.037 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : DESCRIBE DEPT;
+ΑΠΟΤΕΛΕΣΜΑ:
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| DEPTNO    | decimal(2,0) | NO   |     | NULL    |       |
+| DEPT_NAME | varchar(25)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+2 rows in set (0.015 sec)
+
+ΕΝΤΟΛΗ : SHOW CREATE TABLE DEPT;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                      |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| DEPT  | CREATE TABLE `dept` (
+  `DEPTNO` decimal(2,0) NOT NULL,
+  `DEPT_NAME` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+Ερώτημα 14)
+
+ΕΝΤΟΛΗ:ALTER TABLE DEPT
+		 ADD CONSTRAINT pk_Deptno PRIMARY KEY (Deptno);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected, 1 warning (0.038 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+ΕΝΤΟΛΗ : DESCRIBE DEPT;
+ΑΠΟΤΕΛΕΣΜΑ:
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| DEPTNO    | decimal(2,0) | NO   | PRI | NULL    |       |
+| DEPT_NAME | varchar(25)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+2 rows in set (0.012 sec)
+
+ΕΝΤΟΛΗ : ALTER TABLE JOB
+		 ADD CONSTRAINT pk_Jobcode PRIMARY KEY (Jobcode);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected, 1 warning (0.042 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+ΕΝΤΟΛΗ : DESCRIBE JOB;
+ΑΠΟΤΕΛΕΣΜΑ:
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| JOBCODE   | decimal(3,0)  | NO   | PRI | NULL    |       |
+| JOB_DESCR | varchar(30)   | YES  |     | NULL    |       |
+| SAL       | decimal(10,2) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+3 rows in set (0.012 sec)
+
+ΕΝΤΟΛΗ : ALTER TABLE EMP
+		 ADD CONSTRAINT pk_Empno PRIMARY KEY (Empno);
+ΑΠΟΤΕΛΕΣΜΑ:
+Query OK, 0 rows affected, 1 warning (0.043 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+ΕΝΤΟΛΗ : DESCRIBE EMP;	
+ΑΠΟΤΕΛΕΣΜΑ:
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| EMPNO    | decimal(4,0)  | NO   | PRI | NULL    |       |
+| NAME     | varchar(20)   | YES  |     | NULL    |       |
+| JOBNO    | decimal(3,0)  | YES  |     | NULL    |       |
+| DEPTNO   | decimal(2,0)  | YES  |     | NULL    |       |
+| COMM     | decimal(10,2) | YES  |     | NULL    |       |
+| HIREDATE | date          | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.012 sec)
+
+ΕΝΤΟΛΗ : ALTER TABLE EMP 
+		 ADD CONSTRAINT fk_Deptno FOREIGN KEY(Deptno) REFERENCES DEPT(Deptno);
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 4 rows affected (0.049 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : DESCRIBE EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| EMPNO    | decimal(4,0)  | NO   | PRI | NULL    |       |
+| NAME     | varchar(20)   | YES  |     | NULL    |       |
+| JOBNO    | decimal(3,0)  | YES  |     | NULL    |       |
+| DEPTNO   | decimal(2,0)  | YES  | MUL | NULL    |       |
+| COMM     | decimal(10,2) | YES  |     | NULL    |       |
+| HIREDATE | date          | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.015 sec)
+
+ΕΝΤΟΛΗ : ALTER TABLE EMP 
+		 ADD CONSTRAINT fk_Jobno FOREIGN KEY(Jobno) REFERENCES JOB(Jobcode);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 4 rows affected (0.050 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : DESCRIBE EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| EMPNO    | decimal(4,0)  | NO   | PRI | NULL    |       |
+| NAME     | varchar(20)   | YES  |     | NULL    |       |
+| JOBNO    | decimal(3,0)  | YES  | MUL | NULL    |       |
+| DEPTNO   | decimal(2,0)  | YES  | MUL | NULL    |       |
+| COMM     | decimal(10,2) | YES  |     | NULL    |       |
+| HIREDATE | date          | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.015 sec)
+
+
+Ερώτημα 15)
+
+ΕΝΤΟΛΗ:SHOW CREATE TABLE EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| EMP   | CREATE TABLE `emp` (
+  `EMPNO` decimal(4,0) NOT NULL,
+  `NAME` varchar(20) DEFAULT NULL,
+  `JOBNO` decimal(3,0) DEFAULT NULL,
+  `DEPTNO` decimal(2,0) DEFAULT NULL,
+  `COMM` decimal(10,2) DEFAULT NULL,
+  `HIREDATE` date DEFAULT NULL,
+  PRIMARY KEY (`EMPNO`),
+  KEY `fk_Deptno` (`DEPTNO`),
+  KEY `fk_Jobno` (`JOBNO`),
+  CONSTRAINT `fk_Deptno` FOREIGN KEY (`DEPTNO`) REFERENCES `dept` (`DEPTNO`),
+  CONSTRAINT `fk_Jobno` FOREIGN KEY (`JOBNO`) REFERENCES `job` (`JOBCODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : ALTER TABLE EMP DROP FOREIGN KEY fk_Deptno;
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 0 rows affected (0.415 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : DESCRIBE EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++----------+---------------+------+-----+---------+-------+
+| Field    | Type          | Null | Key | Default | Extra |
++----------+---------------+------+-----+---------+-------+
+| EMPNO    | decimal(4,0)  | NO   | PRI | NULL    |       |
+| NAME     | varchar(20)   | YES  |     | NULL    |       |
+| JOBNO    | decimal(3,0)  | YES  | MUL | NULL    |       |
+| DEPTNO   | decimal(2,0)  | YES  | MUL | NULL    |       |
+| COMM     | decimal(10,2) | YES  |     | NULL    |       |
+| HIREDATE | date          | YES  |     | NULL    |       |
++----------+---------------+------+-----+---------+-------+
+6 rows in set (0.017 sec)
+
+ΕΝΤΟΛΗ : SHOW CREATE TABLE EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| EMP   | CREATE TABLE `emp` (
+  `EMPNO` decimal(4,0) NOT NULL,
+  `NAME` varchar(20) DEFAULT NULL,
+  `JOBNO` decimal(3,0) DEFAULT NULL,
+  `DEPTNO` decimal(2,0) DEFAULT NULL,
+  `COMM` decimal(10,2) DEFAULT NULL,
+  `HIREDATE` date DEFAULT NULL,
+  PRIMARY KEY (`EMPNO`),
+  KEY `fk_Deptno` (`DEPTNO`),
+  KEY `fk_Jobno` (`JOBNO`),
+  CONSTRAINT `fk_Jobno` FOREIGN KEY (`JOBNO`) REFERENCES `job` (`JOBCODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+Ερώτημα 16)
+
+ΕΝΤΟΛΗ:ALTER TABLE DEPT ALTER DEPT_NAME SET DEFAULT 'Development';
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.004 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : INSERT INTO DEPT(DEPTNO) VALUES (10), (20);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 2 rows affected (0.003 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : SELECT * FROM DEPT;
+ΑΠΟΤΕΛΕΣΜΑ:
++--------+-------------+
+| DEPTNO | DEPT_NAME   |
++--------+-------------+
+|     10 | Development |
+|     20 | Development |
+|     50 | SALES       |
+|     60 | ACCOUNTING  |
+|     70 | PAYROL      |
++--------+-------------+
+5 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : INSERT INTO DEPT VALUES (30, 'Sales');
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 1 row affected (0.002 sec)
+
+ΕΝΤΟΛΗ : SELECT * FROM DEPT;
+ΑΠΟΤΕΛΕΣΜΑ:
++--------+-------------+
+| DEPTNO | DEPT_NAME   |
++--------+-------------+
+|     10 | Development |
+|     20 | Development |
+|     30 | Sales       |
+|     50 | SALES       |
+|     60 | ACCOUNTING  |
+|     70 | PAYROL      |
++--------+-------------+
+6 rows in set (0.000 sec)
+
+
+Ερώτημα 17)
+
+ΕΝΤΟΛΗ:SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA='PERSONNEL';
+ΑΠΟΤΕΛΕΣΜΑ:
++--------------------+-------------------+-----------------+--------------+------------+-----------------+
+| CONSTRAINT_CATALOG | CONSTRAINT_SCHEMA | CONSTRAINT_NAME | TABLE_SCHEMA | TABLE_NAME | CONSTRAINT_TYPE |
++--------------------+-------------------+-----------------+--------------+------------+-----------------+
+| def                | personnel         | PRIMARY         | personnel    | dept       | PRIMARY KEY     |
+| def                | personnel         | PRIMARY         | personnel    | emp        | PRIMARY KEY     |
+| def                | personnel         | fk_Jobno        | personnel    | emp        | FOREIGN KEY     |
+| def                | personnel         | PRIMARY         | personnel    | job        | PRIMARY KEY     |
++--------------------+-------------------+-----------------+--------------+------------+-----------------+
+4 rows in set (0.606 sec)
+
+Ερώτημα 18)
+
+ΕΝΤΟΛΗ:CREATE TABLE PROJECT (P_ID int NOT NULL, P_NAME varchar(255), PRIMARY KEY (P_ID));
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.009 sec)
+
+ΕΝΤΟΛΗ : ALTER TABLE PROJECT MODIFY P_ID INT NOT NULL AUTO_INCREMENT;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.063 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+
+Ερώτημα 19)
+
+ΕΝΤΟΛΗ:INSERT INTO PROJECT(P_ID) VALUES (30), (50), (40), (70), (20);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 5 rows affected (0.008 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : SELECT * FROM PROJECT;	
+ΑΠΟΤΕΛΕΣΜΑ: +------+--------+
+| P_ID | P_NAME |
++------+--------+
+|   20 | NULL   |
+|   30 | NULL   |
+|   40 | NULL   |
+|   50 | NULL   |
+|   70 | NULL   |
++------+--------+
+5 rows in set (0.000 sec)
+
+
+Ερώτημα 20)
+
+ΕΝΤΟΛΗ: ALTER TABLE PROJECT AUTO_INCREMENT = 200;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.006 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : INSERT INTO PROJECT(P_ID) VALUES (130), (250), (240), (270), (120);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 5 rows affected (0.001 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : SELECT * FROM PROJECT;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+--------+
+| P_ID | P_NAME |
++------+--------+
+|   20 | NULL   |
+|   30 | NULL   |
+|   40 | NULL   |
+|   50 | NULL   |
+|   70 | NULL   |
+|  120 | NULL   |
+|  130 | NULL   |
+|  240 | NULL   |
+|  250 | NULL   |
+|  270 | NULL   |
++------+--------+
+10 rows in set (0.000 sec)
+
+

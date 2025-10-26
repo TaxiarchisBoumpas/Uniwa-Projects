@@ -1,0 +1,841 @@
+ΟΝΟΜΑΤΕΠΩΝΥΜΟ: ΤΑΞΙΑΡΧΗΣ ΜΠΟΥΜΠΑΣ
+ΑΜ: 21390151
+ΕΡΓΑΣΙΑ 5
+
+
+
+*****1o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : "C:\xampp\mysql\bin\mysql.exe" --default-character-set=utf8mb4 -u root -p
+
+*****2o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : SHOW DATABASES;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------------------+
+| Database           |
++--------------------+
+| asps               |
+| information_schema |
+| mysql              |
+| new_personnel      |
+| performance_schema |
+| personnel          |
+| phpmyadmin         |
+| test               |
++--------------------+
+8 rows in set (0.020 sec)
+
+*****3o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : drop database if exists my_accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ : 
+Query OK, 0 rows affected, 1 warning (0.001 sec)
+
+ΕΝΤΟΛΗ : create database my_accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : use my_accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Database changed
+
+ΕΝΤΟΛΗ : create table Accounts ( acctID integer not null primary key,
+Balance integer not null); 
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.006 sec)
+
+ΕΝΤΟΛΗ : insert into Accounts (acctID, Balance) values (101, 1000);
+		 insert into Accounts (acctID, Balance) values (202, 2000);
+		 insert into Accounts (acctID, Balance) values (303, 2500);
+		 insert into Accounts (acctID, Balance) values (404, 3000); 
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.002 sec)
+
+ΕΝΤΟΛΗ : (Α) SHOW TABLES;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++-----------------------+
+| Tables_in_my_accounts |
++-----------------------+
+| accounts              |
++-----------------------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : (Β) SELECT * FROM ACCOUNTS;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+---------+
+| acctID | Balance |
++--------+---------+
+|    101 |    1000 |
+|    202 |    2000 |
+|    303 |    2500 |
+|    404 |    3000 |
++--------+---------+
+4 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : (Γ) DESCRIBE ACCOUNTS;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| acctID  | int(11) | NO   | PRI | NULL    |       |
+| Balance | int(11) | NO   |     | NULL    |       |
++---------+---------+------+-----+---------+-------+
+2 rows in set (0.011 sec)
+
+*****4o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : set @rownum=0;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : select (@rownum:=@rownum+1) as No, acctID, Balance from Accounts order by acctID;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++------+--------+---------+
+| No   | acctID | Balance |
++------+--------+---------+
+|    1 |    101 |    1000 |
+|    2 |    202 |    2000 |
+|    3 |    303 |    2500 |
+|    4 |    404 |    3000 |
++------+--------+---------+
+4 rows in set (0.000 sec)
+
+*****5o ΕΡΩΤΗΜΑ*****
+
+ΑΠΑΝΤΗΣΗ : ΟΧΙ
+ΑΙΤΙΟΛΟΓΗΣΗ : Η ΑΥΞΟΥΣΑ ΑΡΙΘΜΗΣΗ ΠΟΥ ΕΜΦΑΝΙΣΤΗΚΕ ΣΤΗΝ ΣΤΗΛΗ ΜΕ ΤΙΤΛΟ No ΤΟΥ ΒΗΜΑΤΟΣ 4, ΔΕΝ ΘΑ ΠΡΕΠΕΙ ΝΑ ΥΠΑΡΧΕΙ 
+			  ΚΑΙ ΣΤΟΝ ΠΙΝΑΚΑ ΜΕ ΟΝΟΜΑ Accounts ΔΙΟΤΙ Η ΑΥΞΟΥΣΑ ΑΡΙΘΜΗΣΗ ΕΠΙΣΤΡΕΦΕΤΑΙ ΩΣ ΑΠΟΤΕΛΕΣΜΑ ΜΟΝΟ ΣΤΗΝ ΣΥΓΚΕΚΡΙΜΕΝΗ
+			  ΕΝΤΟΛΗ ΤΟΥ ΒΗΜΑΤΟΣ 4 ΚΑΙ ΟΧΙ ΣΤΟΝ ΠΙΝΑΚΑ ΜΕ ΟΝΟΜΑ Accounts.
+
+*****6o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : CREATE TABLE CUSTOMERS (CUSTNO INTEGER NOT NULL , CUST_NAME VARCHAR(30) );
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.007 sec)
+
+ΕΝΤΟΛΗ : INSERT INTO CUSTOMERS (CUSTNO, CUST_NAME) VALUES (10, 101);
+		 INSERT INTO CUSTOMERS (CUSTNO, CUST_NAME) VALUES (20, 202);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : (Α) SHOW TABLES;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++-----------------------+
+| Tables_in_my_accounts |
++-----------------------+
+| accounts              |
+| customers             |
++-----------------------+
+2 rows in set (0.001 sec)
+
+ΕΝΤΟΛΗ : (Β) SELECT * FROM CUSTOMERS;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+-----------+
+| CUSTNO | CUST_NAME |
++--------+-----------+
+|     10 | 101       |
+|     20 | 202       |
++--------+-----------+
+2 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : (Γ) DESCRIBE CUSTOMERS;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| CUSTNO    | int(11)     | NO   |     | NULL    |       |
+| CUST_NAME | varchar(30) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.009 sec)
+
+*****7o ΕΡΩΤΗΜΑ*****
+ΕΝΤΟΛΗ : ALTER TABLE CUSTOMERS
+		 ADD CONSTRAINT PK_CUSTNO PRIMARY KEY (CUSTNO);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected, 1 warning (0.029 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+ΕΝΤΟΛΗ : ALTER TABLE ACCOUNTS
+		 ADD COLUMN CUSTNO INTEGER, 
+		 ADD CONSTRAINT FK_CUSTNO FOREIGN KEY (CUSTNO) REFERENCES CUSTOMERS(CUSTNO);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 4 rows affected (0.041 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+ΕΝΤΟΛΗ : UPDATE ACCOUNTS
+		 SET CUSTNO = CASE
+		 WHEN acctID = 202 THEN 20
+		 ELSE 10
+		 END;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 4 rows affected (0.002 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+ΕΝΤΟΛΗ : (Α) SELECT * FROM ACCOUNTS;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+---------+--------+
+| acctID | Balance | CUSTNO |
++--------+---------+--------+
+|    101 |    1000 |     10 |
+|    202 |    2000 |     20 |
+|    303 |    2500 |     10 |
+|    404 |    3000 |     10 |
++--------+---------+--------+
+4 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : (Β) DESCRIBE ACCOUNTS;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++---------+---------+------+-----+---------+-------+
+| Field   | Type    | Null | Key | Default | Extra |
++---------+---------+------+-----+---------+-------+
+| acctID  | int(11) | NO   | PRI | NULL    |       |
+| Balance | int(11) | NO   |     | NULL    |       |
+| CUSTNO  | int(11) | YES  | MUL | NULL    |       |
++---------+---------+------+-----+---------+-------+
+3 rows in set (0.008 sec)
+
+*****8o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : select CUSTNO, count(*), sum(Balance)
+		 from Accounts
+		 where CUSTNO not in (20)
+		 group by CUSTNO;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+----------+--------------+
+| CUSTNO | count(*) | sum(Balance) |
++--------+----------+--------------+
+|     10 |        3 |         6500 |
++--------+----------+--------------+
+1 row in set (0.000 sec)
+
+ΕΡΜΗΝΕΙΑ : ΜΕ ΤΗΝ ΧΡΗΣΗ ΤΩΝ ΠΑΡΑΠΑΝΩ ΕΝΤΟΛΩΝ ΕΜΦΑΝΙΖΟΝΤΑΙ ΣΤΗΝ ΟΘΟΝΗ ΟΙ ΕΓΓΡΑΦΕΣ
+		   ΠΟΥ ΕΧΟΥΝ CUSTNO ΔΙΑΦΟΡΟ ΤΟΥ 20, ΤΟ ΠΛΗΘΟΣ ΑΥΤΩΝ ΤΩΝ ΕΓΓΡΑΦΩΝ ΚΑΙ ΤΟ ΑΘΡΟΙΣΜΑ
+		   ΤΗΣ ΣΤΗΛΗΣ BALANCE ΓΙΑ ΑΥΤΕΣ ΤΙΣ ΕΓΓΡΑΦΕΣ ΟΡΓΑΝΩΜΕΝΕΣ ΜΕ ΒΑΣΗ ΤΗΝ ΣΤΗΛΗ CUSTNO.
+
+//Παραλλαγή με χρήση μεταβλητής
+ΕΝΤΟΛΗ : set @CUST_NO=20;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : select CUSTNO, count(*), sum(Balance)
+		 from Accounts
+		 where CUSTNO not in (@CUST_NO)
+		 group by CUSTNO;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+----------+--------------+
+| CUSTNO | count(*) | sum(Balance) |
++--------+----------+--------------+
+|     10 |        3 |         6500 |
++--------+----------+--------------+
+1 row in set (0.000 sec)
+
+ΕΡΜΗΝΕΙΑ : ΣΤΗΝ ΠΑΡΑΛΛΑΓΗ ΤΗΣ ΕΝΤΟΛΗΣ ΜΕ ΤΗΝ ΧΡΗΣΗ ΜΕΤΑΒΛΗΤΗΣ ΑΡΧΙΚΟΠΟΙΕΙ ΜΙΑ ΜΕΤΑΒΛΗΤΗ ΜΕ ΟΝΟΜΑ
+		   @CUST_NO ΜΕ ΤΗΝ ΤΙΜΗ 20 ΚΑΙ ΕΠΕΙΤΑ ΚΑΝΕΙ ΚΑΝΕΙ ΤΙΣ ΙΔΙΕΣ ΕΝΤΟΛΕΣ ΜΕ ΠΑΡΑΠΑΝΩ ΑΠΛΑ ΑΝΤΙ
+		   where CUSTNO not in (20) ΒΑΖΕΙ where CUSTNO not in (@CUST_NO) ΠΟΥ ΤΟ @CUST_NO ΙΣΟΥΤΑΙ ΜΕ 20.
+
+
+*****9o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : select count(*), sum(Balance) from Accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++----------+--------------+
+| count(*) | sum(Balance) |
++----------+--------------+
+|        4 |         8500 |
++----------+--------------+
+1 row in set (0.000 sec)
+
+ΕΡΜΗΝΕΙΑ : ΜΕ ΤΗΝ ΠΑΡΑΠΑΝΩ ΕΝΤΟΛΗ ΕΜΦΑΝΙΖΟΝΤΑΙ ΣΤΗΝ ΟΘΟΝΗ ΤΟ ΠΛΗΘΟΣ ΤΩΝ ΕΓΓΡΑΦΩΝ ΤΟΥ ΠΙΝΑΚΑ ACCOUNTS
+		   ΚΑΙ ΤΟ ΑΘΡΟΙΣΜΑ ΤΗΣ ΣΤΗΛΗΣ BALANCE ΤΟΥ ΠΙΝΑΚΑ ACCOUNTS.
+
+//Παραλλαγή με χρήση μεταβλητών
+ΕΝΤΟΛΗ : set @COUNT_acctID=0, @SUM_acctID=0, @AVG_acctID=0;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : select count(*), sum(Balance), avg(Balance)
+		 into @COUNT_acctID, @SUM_acctID, @AVG_acctID
+		 from Accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.000 sec)
+
+ΕΝΤΟΛΗ : select @COUNT_acctID, @SUM_acctID, @AVG_acctID, @MY_AVG := @SUM_acctID/@COUNT_acctID;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++---------------+-------------+----------------+--------------------------------------+
+| @COUNT_acctID | @SUM_acctID | @AVG_acctID    | @MY_AVG := @SUM_acctID/@COUNT_acctID |
++---------------+-------------+----------------+--------------------------------------+
+|             4 |        8500 | 2125.000000000 |                       2125.000000000 |
++---------------+-------------+----------------+--------------------------------------+
+1 row in set (0.000 sec)
+
+ΕΡΜΗΝΕΙΑ :	ΣΤΗΝ ΠΑΡΑΛΛΑΓΗ ΜΕ ΧΡΗΣΗ ΜΕΤΑΒΛΗΤΩΝ ΑΡΧΙΚΟΙΠΟΙΟΥΝΤΑΙ ΟΙ ΜΕΤΑΒΛΗΤΕΣ 
+            @COUNT_acctID, @SUM_acctID, @AVG_acctID ΜΕ ΤΗΝ ΤΙΜΗ 0 ΚΑΙ ΕΠΕΙΤΑ ΜΕ ΤΗΝ 
+			select count(*), sum(Balance), avg(Balance)
+			into @COUNT_acctID, @SUM_acctID, @AVG_acctID
+			from Accounts;
+			ΕΝΗΜΕΡΩΝΕΙ ΤΙΣ ΜΕΤΑΒΛΗΤΕΣ.
+			ΤΕΛΟΣ ΜΕ ΤΗΝ ΕΝΤΟΛΗ select @COUNT_acctID, @SUM_acctID, @AVG_acctID, @MY_AVG := @SUM_acctID/@COUNT_acctID;
+			ΥΠΟΛΟΓΙΖΕΙ ΤΑ ΙΔΙΑ ΑΠΟΤΕΛΕΣΜΑΤΑ ΜΕ ΤΗΝ ΕΝΤΟΛΗ select count(*), sum(Balance) from Accounts;
+			ΣΥΝ 2 ΣΤΗΛΕΣ ΤΙΣ  @AVG_acctID, @MY_AVG := @SUM_acctID/@COUNT_acctID ΟΙ ΟΠΟΙΕΣ ΔΕΙΧΝΟΥΝ
+			ΤΟΝ ΜΕΣΟ ΟΡΟ ΤΟΥ BALANCE ΚΑΘΕ ACCOUNT. ΟΛΑ ΤΑ ΑΠΟΤΕΛΕΣΜΑΤΑ ΕΜΦΑΝΙΖΟΝΤΑΙ ΣΤΗΝ ΟΘΟΝΗ.
+
+*****10o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : drop function if exists factorial;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected, 1 warning (0.011 sec)
+
+ΕΝΤΟΛΗ : delimiter !
+		 create function factorial(N int)
+		 returns int
+		 deterministic
+		 begin
+		 declare F int default 1;
+		 while N > 0 do
+		 set F = N * F;
+		 set N = N - 1;
+		 end while;
+		 return F;
+		 end !
+		 delimiter ;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.002 sec)
+
+// Δοκιμές της λειτουργίας του trigger για Ν=4 και Ν=15
+ΕΝΤΟΛΗ : select factorial(4);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------------+
+| factorial(4) |
++--------------+
+|           24 |
++--------------+
+1 row in set (0.001 sec)
+
+ΕΝΤΟΛΗ : select factorial(15);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++---------------+
+| factorial(15) |
++---------------+
+|    2147483647 |
++---------------+
+1 row in set (0.000 sec)
+
+*****11o ΕΡΩΤΗΜΑ*****
+
+ΕΝΤΟΛΗ : drop procedure my_procedure_Local_Variables;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+ERROR 1305 (42000): PROCEDURE my_accounts.my_procedure_Local_Variables does not exist
+
+ΕΝΤΟΛΗ : delimiter $$
+		 create procedure my_procedure_Local_Variables()
+		 begin
+		 set @X = 25;
+		 set @Y = 10;
+		 select @X, @Y, @X*@Y;
+		 end $$
+		 delimiter ;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.002 sec)
+
+// Κλήση της διαδικασίας
+ΕΝΤΟΛΗ : call my_procedure_Local_Variables();
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++------+------+-------+
+| @X   | @Y   | @X*@Y |
++------+------+-------+
+|   25 |   10 |   250 |
++------+------+-------+
+1 row in set (0.000 sec)
+
+Query OK, 0 rows affected (0.001 sec)
+
+*****12o ΕΡΩΤΗΜΑ*****
+
+// Δοκιμές χρήσης της συνάρτησης MOD
+ΕΝΤΟΛΗ : SET @p_no=3;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ : 
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : SELECT MOD(@p_no,2);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------------+
+| MOD(@p_no,2) |
++--------------+
+|            1 |
++--------------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : SET @p_no=8;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ : 
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : SELECT MOD(@p_no,2);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------------+
+| MOD(@p_no,2) |
++--------------+
+|            0 |
++--------------+
+1 row in set (0.000 sec)
+
+// Δημιουργία βάσης και πίνακα
+ΕΝΤΟΛΗ : DROP TABLE IF EXISTS myTrace;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ : 
+Query OK, 0 rows affected, 1 warning (0.030 sec)
+
+ΕΝΤΟΛΗ : CREATE TABLE myTrace ( t_no INT,
+		 t_user CHAR(20),
+	 	 t_date DATE,
+		 t_time TIME,
+		 t_proc VARCHAR(16), t_what VARCHAR(30));
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.005 sec)
+
+// Δημιουργία αποθηκευμένης διαδικασίας myProc
+ΕΝΤΟΛΗ : DROP PROCEDURE IF EXISTS myProc;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected, 1 warning (0.000 sec)
+
+ΕΝΤΟΛΗ : DELIMITER !
+		 CREATE PROCEDURE myProc (IN p_no INT, IN p_in VARCHAR(30),
+			OUT p_out VARCHAR(30))
+		 LANGUAGE SQL
+		 BEGIN
+		 SET p_out=p_in;
+		 INSERT INTO myTrace (t_no, t_user, t_date, t_time, t_proc, t_what)
+			VALUES (p_no, current_user, current_date, current_time, 'myProc', p_in);
+		 IF (MOD(p_no,2)=0) THEN
+			COMMIT;
+		 ELSE ROLLBACK;
+		 END IF;
+		 END !
+		 DELIMITER ;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.002 sec)
+
+// Κλήση της διαδικασίας
+ΕΝΤΟΛΗ : SET AUTOCOMMIT=0;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : CALL myProc(1, 'hello1', @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.003 sec)
+
+ΕΝΤΟΛΗ : CALL myProc(2, 'hello2', @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : CALL myProc(3, 'hello3', @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : CALL myProc(4, 'hello4', @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : CALL myProc(5, 'hello5', @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : CALL myProc(6, 'hello6', @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : CALL myProc(7, 'hello7', @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+
+// Μελέτη αποτελέσματος
+ΕΝΤΟΛΗ : SELECT * FROM myTrace;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++------+----------------+------------+----------+--------+--------+
+| t_no | t_user         | t_date     | t_time   | t_proc | t_what |
++------+----------------+------------+----------+--------+--------+
+|    2 | root@localhost | 2024-02-12 | 15:44:23 | myProc | hello2 |
+|    4 | root@localhost | 2024-02-12 | 15:44:39 | myProc | hello4 |
+|    6 | root@localhost | 2024-02-12 | 15:44:47 | myProc | hello6 |
++------+----------------+------------+----------+--------+--------+
+3 rows in set (0.000 sec)
+
+Η ΔΙΑΔΙΚΑΣΙΑ myProc : Η ΔΙΑΔΙΚΑΣΙΑ myProc ΔΕΧΕΤΑΙ ΩΣ ΕΙΣΟΔΟ ΕΝΑΝ ΑΡΙΘΜΟ ΚΑΙ ΕΛΕΓΧΕΙ ΑΝ ΑΥΤΟΣ ΕΙΝΑΙ 
+					  ΑΡΤΙΟΣ. ΑΝ ΙΣΧΥΕΙ ΑΥΤΟ ΤΟΤΕ ΤΡΟΠΟΠΟΙΕΙ ΤΟΝ ΠΙΝΑΚΑ myTrace ΕΙΣΑΓΟΝΤΑΣ ΔΕΔΟΜΕΝΑ 
+					  ΣΕ ΑΥΤΟΝ ΜΕ ΒΑΣΗ ΤΙΣ CALL myProc(......, 'hello......', @out); ΕΝΩ ΑΝ ΕΙΝΑΙ 
+					  ΠΕΡΙΤΤΟΣ ΤΟΝ ΑΠΟΡΡΙΠΤΕΙ ΚΑΙ ΠΡΟΧΩΡΑΕΙ ΣΤΗΝ ΕΠΟΜΕΝΗ ΕΙΣΟΔΟ ΜΕΧΡΙΣ ΩΤΟΥ ΤΗΝ 
+					  ΕΝΤΟΛΗ END! .
+
+*****13o ΕΡΩΤΗΜΑ*****
+
+// Δημιουργία πίνακα Accounts με 2 εγγραφές
+ΕΝΤΟΛΗ : DROP TABLE IF EXISTS Accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ : Query OK, 0 rows affected (0.006 sec)
+
+ΕΝΤΟΛΗ : CREATE TABLE Accounts ( acctID INTEGER NOT NULL PRIMARY KEY,
+			balance INTEGER NOT NULL,
+		 CONSTRAINT unloanable_account CHECK (balance >= 0));
+		 INSERT INTO Accounts (acctID, balance) VALUES (101, 1000);
+		 INSERT INTO Accounts (acctID, balance) VALUES (202, 2000);
+		 COMMIT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.001 sec)
+
+ΕΝΤΟΛΗ : SELECT * FROM accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+---------+
+| acctID | balance |
++--------+---------+
+|    101 |    1000 |
+|    202 |    2000 |
++--------+---------+
+2 rows in set (0.000 sec)
+
+// Συναλλαγή
+ΕΝΤΟΛΗ : BEGIN TRANSACTION;
+		 UPDATE Accounts SET balance = balance - 100
+		 WHERE acctId = 101;
+		 UPDATE Accounts SET balance = balance + 100
+		 WHERE acctId = 202;
+		 COMMIT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+Query OK, 0 rows affected (0.001 sec)
+
+// Αποτέλεσμα συναλλαγής
+ΕΝΤΟΛΗ : SELECT * FROM accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+---------+
+| acctID | balance |
++--------+---------+
+|    101 |     900 |
+|    202 |    2100 |
++--------+---------+
+2 rows in set (0.000 sec)
+
+*****14o ΕΡΩΤΗΜΑ*****
+
+// Δημιουργία procedure BankTrasfer
+ΕΝΤΟΛΗ : DELIMITER //
+		 DROP PROCEDURE BankTransfer //
+		 CREATE PROCEDURE BankTransfer (IN fromAcct INT,
+										IN toAcct INT,
+										IN amount INT,
+										OUT msg VARCHAR(100)
+									   )
+		 P1: BEGIN
+			DECLARE rows1 INT ;
+			DECLARE newbalance INT;
+			SELECT COUNT(*) INTO rows1 FROM Accounts WHERE acctID = fromAcct;
+			UPDATE Accounts SET balance = balance - amount WHERE acctID = fromAcct;
+			SELECT balance INTO newbalance FROM Accounts WHERE acctID = fromAcct;
+			IF rows1 = 0 THEN
+				ROLLBACK;
+				SET msg = CONCAT('rolled back because of missing account ', fromAcct);
+			ELSEIF newbalance < 0 THEN
+					ROLLBACK;
+				SET msg = CONCAT('rolled back because of negative balance of account ', fromAcct);
+				 ELSE
+					SELECT COUNT(*) INTO rows1 FROM Accounts WHERE acctID = toAcct;
+					UPDATE Accounts SET balance = balance + amount WHERE acctID = toAcct;
+					IF rows1 = 0 THEN
+						ROLLBACK;
+						SET msg = CONCAT('rolled back because of missing account ', toAcct);
+					ELSE
+						COMMIT;
+						SET msg = 'committed';
+					END IF;
+				END IF;
+		 END P1 //
+		 DELIMITER ;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.002 sec)
+
+// Δοκιμή μεταφοράς 100 από acctID=101 σε acctID=202
+ΕΝΤΟΛΗ : SET AUTOCOMMIT=0; 
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : SET @out = ' ';
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+
+ΕΝΤΟΛΗ : CALL BankTransfer (101, 202, 100, @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 5 rows affected (0.002 sec)
+
+ΕΝΤΟΛΗ : SELECT @OUT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++-----------+
+| @OUT      |
++-----------+
+| committed |
++-----------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : Select * from accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+---------+
+| acctID | balance |
++--------+---------+
+|    101 |     800 |
+|    202 |    2200 |
++--------+---------+
+2 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : COMMIT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+// Δοκιμή μεταφοράς 100 από acctID=101 σε acctID=201 (ανύπαρκτος)
+ΕΝΤΟΛΗ : SET autocommit=0;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : SET @out = ' ';
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : CALL BankTransfer (100, 201, 100, @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected, 1 warning (0.000 sec)
+
+ΕΝΤΟΛΗ : SELECT @OUT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------------------------------------------+
+| @OUT                                       |
++--------------------------------------------+
+| rolled back because of missing account 100 |
++--------------------------------------------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : Select * from accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+---------+
+| acctID | balance |
++--------+---------+
+|    101 |     800 |
+|    202 |    2200 |
++--------+---------+
+2 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : COMMIT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+// Δοκιμή μεταφοράς 100 από acctID=100 (ανύπαρκτος) σε acctID=201
+ΕΝΤΟΛΗ : SET autocommit=0;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : SET @out = ' ';
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : CALL BankTransfer (100, 201, 100, @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected, 1 warning (0.001 sec)
+
+ΕΝΤΟΛΗ : SELECT @OUT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------------------------------------------+
+| @OUT                                       |
++--------------------------------------------+
+| rolled back because of missing account 100 |
++--------------------------------------------+
+1 row in set (0.000 sec)
+
+// Δοκιμή μεταφοράς 1500 από acctID=101 (ανεπαρκής) σε acctID=201
+ΕΝΤΟΛΗ : SET AUTOCOMMIT=0;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : SET @out = ' ';
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : CALL BankTransfer (101, 201, 1500, @out);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : SELECT @OUT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------------------------------------------------------+
+| @OUT                                       			 |
++--------------------------------------------------------+
+| rolled back because of negative balance of account 101 |
++--------------------------------------------------------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : Select * from accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+---------+
+| acctID | balance |
++--------+---------+
+|    101 |     800 |
+|    202 |    2200 |
++--------+---------+
+2 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : COMMIT;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+*****15o ΕΡΩΤΗΜΑ*****
+
+// Δημιουργία πίνακα Accounts
+ΕΝΤΟΛΗ : DROP TABLE IF EXISTS Accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.005 sec)
+
+ΕΝΤΟΛΗ : CREATE TABLE Accounts ( acctID INTEGER NOT NULL PRIMARY KEY,
+			balance INTEGER NOT NULL);
+		 INSERT INTO Accounts (acctID, balance) VALUES (101, 1000);
+		 INSERT INTO Accounts (acctID, balance) VALUES (202, 2000);
+		 COMMIT; 
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.001 sec)
+
+ΕΝΤΟΛΗ : SELECT * FROM accounts;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++--------+---------+
+| acctID | balance |
++--------+---------+
+|    101 |    1000 |
+|    202 |    2000 |
++--------+---------+
+2 rows in set (0.000 sec)
+
+// Δημιουργία trigger Accounts_upd_trg για έλεγχο των updates
+ΕΝΤΟΛΗ : delimiter !
+		 CREATE TRIGGER Accounts_upd_trg
+		 BEFORE UPDATE ON Accounts
+		 FOR EACH ROW
+		 BEGIN
+		 IF NEW.balance < 0 THEN
+		 SIGNAL SQLSTATE '23513'
+		 SET MESSAGE_TEXT = 'Negative balance not allowed';
+		 END IF;
+		 END; !
+		 delimiter ; 
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.004 sec)
+
+// Δημιουργία trigger Accounts_ins_trg για έλεγχο των inserts
+ΕΝΤΟΛΗ : delimiter !
+		 CREATE TRIGGER Accounts_ins_trg
+		 BEFORE INSERT ON Accounts
+		 FOR EACH ROW
+		 BEGIN
+		 IF NEW.balance < 0 THEN
+		 SIGNAL SQLSTATE '23513'
+		 SET MESSAGE_TEXT = 'Negative balance not allowed';
+		 END IF;
+		 END; !
+		 delimiter ;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.004 sec)
+
+// Δημιουργία procedure BankTransfer
+ΕΝΤΟΛΗ : DROP PROCEDURE BankTransfer;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.003 sec)
+
+ΕΝΤΟΛΗ : DELIMITER !
+		 CREATE PROCEDURE BankTransfer (IN fromAcct INT,
+		 IN toAcct INT,
+		 IN amount INT,
+		 OUT msg VARCHAR(100))
+		 LANGUAGE SQL MODIFIES SQL DATA
+		 P1: BEGIN
+		 DECLARE acct INT;
+		 DECLARE balance_v INT;
+		 DECLARE EXIT HANDLER FOR NOT FOUND
+			BEGIN ROLLBACK;
+			SET msg = CONCAT('missing account ', CAST(acct AS CHAR));
+			END;
+		 DECLARE EXIT HANDLER FOR SQLEXCEPTION
+			BEGIN ROLLBACK;
+			SET msg = CONCAT('negative balance (?) in ', fromAcct);
+			END;
+		 SET acct = fromAcct;
+		 SELECT acctID INTO acct FROM Accounts WHERE acctID = fromAcct ;
+		 UPDATE Accounts SET balance = balance - amount
+		 WHERE acctID = fromAcct;
+		 SET acct = toAcct;
+		 SELECT acctID INTO acct FROM Accounts WHERE acctID = toAcct ;
+		 UPDATE Accounts SET balance = balance + amount
+		 WHERE acctID = toAcct;
+			SELECT balance INTO balance_v
+			FROM accounts
+			WHERE acctID = fromAcct;
+				IF balance_v < 0 THEN
+					ROLLBACK;
+					SET msg = CONCAT(' negative balance in ', fromAcct);
+				ELSE
+					COMMIT;
+					SET msg = 'committed';
+		 END IF;
+		 END P1 !
+		 DELIMITER ;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.002 sec)
+
+ΕΝΤΟΛΗ : CALL BankTransfer (101, 201, 100, @msg);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 2 rows affected (0.003 sec)
+
+ΕΝΤΟΛΗ : Select @msg;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++---------------------+
+| @msg                |
++---------------------+
+| missing account 201 |
++---------------------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : CALL BankTransfer (100, 202, 100, @msg);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 0 rows affected (0.000 sec)
+
+ΕΝΤΟΛΗ : Select @msg;
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++---------------------+
+| @msg                |
++---------------------+
+| missing account 100 |
++---------------------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : CALL BankTransfer (101, 202, 100, @msg);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 5 rows affected (0.001 sec)
+
+ΕΝΤΟΛΗ : Select @msg; 
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++-----------+
+| @msg      |
++-----------+
+| committed |
++-----------+
+1 row in set (0.000 sec)
+
+ΕΝΤΟΛΗ : CALL BankTransfer (101, 202, 2000, @msg);
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
+Query OK, 1 row affected (0.000 sec)
+
+ΕΝΤΟΛΗ : Select @msg; 
+ΑΠΟΤΕΛΕΣΜΑ ΕΝΤΟΛΗΣ :
++-----------------------------+
+| @msg                        |
++-----------------------------+
+| negative balance (?) in 101 |
++-----------------------------+
+1 row in set (0.000 sec)
+
+
+
+
+
+----------------------------------------------------------------------

@@ -1,0 +1,398 @@
+Ονοματεπώνυμο: Ταξιάρχης Μπούμπας
+ΑΜ: 21390151
+Εργασία 3η
+Βάσεις Δεδομένων 2
+
+
+Ερώτημα 1)
+
+ΕΝΤΟΛΗ:"C:\xampp\mysql\bin\mysql.exe" --default-character-set=utf8mb4 -u root -p
+ΑΠΟΤΕΛΕΣΜΑ:
+
+Ερώτημα 2)
+
+ΕΝΤΟΛΗ:SHOW DATABASES;
+ΑΠΟΤΕΛΕΣΜΑ:
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| new_personnel      |
+| performance_schema |
+| personnel          |
+| phpmyadmin         |
+| test               |
++--------------------+
+7 rows in set (0.001 sec)
+
+Ερώτημα 3)
+
+ΕΝΤΟΛΗ:USE PERSONNEL;
+ΑΠΟΤΕΛΕΣΜΑ:Database changed
+
+Ερώτημα 4)
+
+ΕΝΤΟΛΗ:create view EMP_VIEW(e_ID, e_Name, e_Job, e_Dept, e_Comm)
+		 as
+		 select EMPNO, NAME, JOBNO, DEPTNO, COMM from EMP;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.003 sec)
+
+Ερώτημα 5)
+
+ΕΝΤΟΛΗ:select * from EMP_VIEW;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   30 | ELMASRI |   300 |     60 |   NULL |
+|   40 | DATE    |   100 |     50 |   NULL |
++------+---------+-------+--------+--------+
+4 rows in set (0.008 sec)
+
+Ερώτημα 6)
+
+ΕΝΤΟΛΗ:insert into EMP(EMPNO, NAME, JOBNO, DEPTNO, COMM) values (90, 'CLARKE', 100, 50, NULL);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 1 row affected (0.003 sec)
+
+ΕΝΤΟΛΗ : select * from EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
+|    90 | CLARKE  |   100 |     50 |   NULL | NULL       |
++-------+---------+-------+--------+--------+------------+
+5 rows in set (0.001 sec)
+
+ΕΝΤΟΛΗ : select * from EMP_VIEW;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   30 | ELMASRI |   300 |     60 |   NULL |
+|   40 | DATE    |   100 |     50 |   NULL |
+|   90 | CLARKE  |   100 |     50 |   NULL |
++------+---------+-------+--------+--------+
+5 rows in set (0.001 sec)
+
+ΕΝΤΟΛΗ : update EMP set JOBNO=200 where EMPNO=90;
+ΑΠΟΤΕΛΕΣΜΑ:
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ΕΝΤΟΛΗ : select * from EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
+|    90 | CLARKE  |   200 |     50 |   NULL | NULL       |
++-------+---------+-------+--------+--------+------------+
+5 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : select * from EMP_VIEW;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   30 | ELMASRI |   300 |     60 |   NULL |
+|   40 | DATE    |   100 |     50 |   NULL |
+|   90 | CLARKE  |   200 |     50 |   NULL |
++------+---------+-------+--------+--------+
+5 rows in set (0.001 sec)
+
+ΕΝΤΟΛΗ : DELETE FROM EMP WHERE EMPNO=90;
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : select * from EMP_VIEW;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   30 | ELMASRI |   300 |     60 |   NULL |
+|   40 | DATE    |   100 |     50 |   NULL |
++------+---------+-------+--------+--------+
+4 rows in set (0.000 sec)
+
+Ερώτημα 7)
+
+ΕΝΤΟΛΗ:insert into EMP_VIEW(e_ID, e_Name, e_Job, e_Dept, e_Comm)
+values (100, 'adams', 100, 60, null);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 1 row affected (0.002 sec)
+
+ΕΝΤΟΛΗ : select * from EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
+|   100 | adams   |   100 |     60 |   NULL | NULL       |
++-------+---------+-------+--------+--------+------------+
+5 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : select * from EMP_VIEW;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   30 | ELMASRI |   300 |     60 |   NULL |
+|   40 | DATE    |   100 |     50 |   NULL |
+|  100 | adams   |   100 |     60 |   NULL |
++------+---------+-------+--------+--------+
+5 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : update EMP_VIEW set e_Job=200 where e_ID=100;
+ΑΠΟΤΕΛΕΣΜΑ: Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+ΕΝΤΟΛΗ : select * from EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
+|   100 | adams   |   200 |     60 |   NULL | NULL       |
++-------+---------+-------+--------+--------+------------+
+5 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : select * from EMP_VIEW;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   30 | ELMASRI |   300 |     60 |   NULL |
+|   40 | DATE    |   100 |     50 |   NULL |
+|  100 | adams   |   200 |     60 |   NULL |
++------+---------+-------+--------+--------+
+5 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ : DELETE FROM EMP_VIEW WHERE e_ID=100;
+ΑΠΟΤΕΛΕΣΜΑ :
+Query OK, 1 row affected (0.001 sec)
+
+ΕΝΤΟΛΗ : select * from EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
++-------+---------+-------+--------+--------+------------+
+4 rows in set (0.000 sec)
+
+ΕΝΤΟΛΗ :  select * from EMP_VIEW;
+ΑΠΟΤΕΛΕΣΜΑΤΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   30 | ELMASRI |   300 |     60 |   NULL |
+|   40 | DATE    |   100 |     50 |   NULL |
++------+---------+-------+--------+--------+
+4 rows in set (0.001 sec)
+
+Ερώτημα 8)
+
+ΕΝΤΟΛΗ:create view EMP_ON_SALES(e_ID, e_Name, e_Job, e_Dept, e_Comm) as
+select EMPNO, NAME, JOBNO, DEPTNO, COMM from EMP
+where DEPTNO in (select DEPTNO from DEPT where DEPT_NAME='SALES');
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.004 sec)
+
+Ερώτημα 9)
+
+ΕΝΤΟΛΗ:insert into EMP(EMPNO, NAME, JOBNO, DEPTNO, COMM) values (110, 'NAVATHE', 100, 60, NULL);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 1 row affected (0.001 sec)
+
+Ερώτημα 10)
+ΓΙΑ ΝΑ ΔΟΥΜΕ ΟΤΙ ΕΜΦΑΝΙΖΟΝΤΑΙ ΟΛΑ ΤΑ ΝΕΑ ΣΤΟΙΧΕΙΑ ΤΟΥ ΠΙΝΑΚΑ EMP ΕΚΤΕΛΟΥΜΕ SELECT * FROM EMP;
+
+ΕΝΤΟΛΗ:SELECT * FROM EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
+|   110 | NAVATHE |   100 |     60 |   NULL | NULL       |
++-------+---------+-------+--------+--------+------------+
+5 rows in set (0.000 sec)
+
+Ερώτημα 11)
+ΣΤΟΝ ΠΙΝΑΚΑ EMP_ON_SALES ΔΕΝ ΘΑ ΕΜΦΑΝΙΣΕΙ ΚΑΠΟΙΑ ΕΓΓΡΑΦΗ ΠΟΥ ΔΕΝ ΕΧΕΙ DEPTNO = 50, ΚΑΘΩΣ ΕΜΦΑΝΙΖΕΙ ΑΠΟΚΛΕΙΣΤΙΚΑ 
+ΤΟΥ ΥΠΑΛΛΗΛΟΥΣ ΠΟΥ ΕΡΓΑΖΟΝΤΑΙ ΣΤΟ ΤΜΗΜΑ 50.
+
+ΕΝΤΟΛΗ:SELECT * FROM EMP_ON_SALES;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   40 | DATE    |   100 |     50 |   NULL |
++------+---------+-------+--------+--------+
+3 rows in set (0.002 sec)
+
+Ερώτημα 12)
+
+ΕΝΤΟΛΗ:insert into EMP_ON_SALES(e_ID, e_Name, e_Job, e_Dept, e_Comm)
+values (120, 'ELMASRI', 100, 60, NULL);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 1 row affected (0.001 sec)
+
+Ερώτημα 13)
+
+ΤΑ ΣΤΟΙΧΕΙΑ ΤΗΣ ΕΓΓΡΑΦΗΣ ΕΜΦΑΝΙΖΟΝΤΑΙ ΚΑΝΟΝΙΚΑ ΣΤΟΝ EMP ΔΙΟΤΙ ΟΠΟΙΟΔΗΠΟΤΕ INSERT ΓΙΝΕΙ ΕΙΤΕ ΣΤΟΝ EMP ΕΙΤΕ ΣΤΟΝ 
+EMP_VIEW ΘΑ ΕΝΗΜΕΡΩΘΟΥΝ ΑΜΦΩΤΕΡΟΙ ΟΙ ΠΙΝΑΚΕΣ.
+
+ΕΝΤΟΛΗ:SELECT * FROM EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
+|   110 | NAVATHE |   100 |     60 |   NULL | NULL       |
+|   120 | ELMASRI |   100 |     60 |   NULL | NULL       |
++-------+---------+-------+--------+--------+------------+
+6 rows in set (0.000 sec)
+
+Ερώτημα 14)
+
+ΣΤΟΝ ΠΙΝΑΚΑ EMP_ON_SALES ΔΕΝ ΘΑ ΕΜΦΑΝΙΣΕΙ ΚΑΠΟΙΑ ΕΓΓΡΑΦΗ ΠΟΥ ΔΕΝ ΕΧΕΙ DEPTNO = 50, ΚΑΘΩΣ ΕΜΦΑΝΙΖΕΙ ΑΠΟΚΛΕΙΣΤΙΚΑ 
+ΤΟΥ ΥΠΑΛΛΗΛΟΥΣ ΠΟΥ ΕΡΓΑΖΟΝΤΑΙ ΣΤΟ ΤΜΗΜΑ 50.
+
+ΕΝΤΟΛΗ:SELECT * FROM EMP_ON_SALES;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   40 | DATE    |   100 |     50 |   NULL |
++------+---------+-------+--------+--------+
+3 rows in set (0.001 sec)
+
+Ερώτημα 15)
+
+ΕΝΤΟΛΗ:create view EMP_ON_SALES_S(e_ID, e_Name, e_Job, e_Dept, e_Comm)
+		as
+		select EMPNO, NAME, JOBNO, DEPTNO, COMM from EMP
+		where DEPTNO in(select DEPTNO from DEPT where DEPT_NAME='SALES');
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.004 sec)
+
+Ερώτημα 16)
+
+ΕΝΤΟΛΗ:insert into EMP_ON_SALES_S(e_ID, e_Name, e_Job, e_Dept, e_Comm)
+values (130, 'DATE', 100, 60, NULL);
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 1 row affected (0.002 sec)
+
+Ερώτημα 17)
+
+ΤΑ ΣΤΟΙΧΕΙΑ ΤΗΣ ΕΓΓΡΑΦΗΣ ΕΜΦΑΝΙΖΟΝΤΑΙ ΚΑΝΟΝΙΚΑ ΣΤΟΝ EMP ΔΙΟΤΙ ΟΠΟΙΟΔΗΠΟΤΕ INSERT ΓΙΝΕΙ ΕΙΤΕ ΣΤΟΝ EMP ΕΙΤΕ ΣΤΟΝ 
+EMP_VIEW ΘΑ ΕΝΗΜΕΡΩΘΟΥΝ ΑΜΦΩΤΕΡΟΙ ΟΙ ΠΙΝΑΚΕΣ.
+
+ΕΝΤΟΛΗ:SELECT * FROM EMP;
+ΑΠΟΤΕΛΕΣΜΑ:
++-------+---------+-------+--------+--------+------------+
+| EMPNO | NAME    | JOBNO | DEPTNO | COMM   | HIREDATE   |
++-------+---------+-------+--------+--------+------------+
+|    10 | CODD    |   100 |     50 |   NULL | 2001-01-10 |
+|    20 | NAVATHE |   200 |     50 | 450.00 | 1999-02-25 |
+|    30 | ELMASRI |   300 |     60 |   NULL | 2000-03-17 |
+|    40 | DATE    |   100 |     50 |   NULL | 1989-06-07 |
+|   110 | NAVATHE |   100 |     60 |   NULL | NULL       |
+|   120 | ELMASRI |   100 |     60 |   NULL | NULL       |
+|   130 | DATE    |   100 |     60 |   NULL | NULL       |
++-------+---------+-------+--------+--------+------------+
+7 rows in set (0.000 sec)
+
+Ερώτημα 18)
+
+ΣΤΟΝ ΠΙΝΑΚΑ EMP_ON_SALES ΔΕΝ ΘΑ ΕΜΦΑΝΙΣΕΙ ΚΑΠΟΙΑ ΕΓΓΡΑΦΗ ΠΟΥ ΔΕΝ ΕΧΕΙ DEPTNO = 50, ΚΑΘΩΣ ΕΜΦΑΝΙΖΕΙ ΑΠΟΚΛΕΙΣΤΙΚΑ 
+ΤΟΥ ΥΠΑΛΛΗΛΟΥΣ ΠΟΥ ΕΡΓΑΖΟΝΤΑΙ ΣΤΟ ΤΜΗΜΑ 50.
+
+ΕΝΤΟΛΗ:SELECT * FROM EMP_ON_SALES_S;
+ΑΠΟΤΕΛΕΣΜΑ:
++------+---------+-------+--------+--------+
+| e_ID | e_Name  | e_Job | e_Dept | e_Comm |
++------+---------+-------+--------+--------+
+|   10 | CODD    |   100 |     50 |   NULL |
+|   20 | NAVATHE |   200 |     50 | 450.00 |
+|   40 | DATE    |   100 |     50 |   NULL |
++------+---------+-------+--------+--------+
+3 rows in set (0.001 sec)
+
+Ερώτημα 19)
+
+ΕΝΤΟΛΗ:create view EMP_DISTINCT_NAMES (NAME) as select distinct NAME from EMP order by NAME;
+ΑΠΟΤΕΛΕΣΜΑ:Query OK, 0 rows affected (0.003 sec)
+
+Ερώτημα 20)
+
+ΕΠΕΙΔΗ Η EMP_DISTINCT_NAMES ΕΙΝΑΙ ΤΥΠΟΥ ΜΗ ΕΝΗΜΕΡΩΣΙΜΗ ΚΑΘΩΣ ΧΡΗΣΙΜΟΠΟΙΕΙΤΑΙ SELECT ΚΑΙ ORDER BY.
+
+ΕΝΤΟΛΗ:insert into EMP_DISTINCT_NAMES values ('GREEN');
+ΑΠΟΤΕΛΕΣΜΑ:
+ERROR 1471 (HY000): The target table EMP_DISTINCT_NAMES of the INSERT is not insertable-into
+
+ΓΙΑΥΤΟ ΒΛΕΠΟΥΜΕ ΚΑΙ ΤΟ ΜΗΝΥΜΑ ERROR ΠΟΥ ΜΑΣ ΕΝΗΜΕΡΩΝΕΙ ΟΤΙ Η ΟΨΗ ΕΙΝΑΙ ΜΗ ΕΝΗΜΕΡΩΣΙΜΗ.
+
+Ερώτημα 21)
+
+ΕΝΤΟΛΗ:create view GROUP_EMP(DEPT, COUNT_EMP, AVG_COMM) as select DEPTNO, count(*), avg(COMM) from
+       EMP group by DEPTNO;
+
+ΕΝΤΟΛΗ:create view EMP_DEPT_VIEW(EMPNO, NAME, JOBNO, DEPTNO, DNAME)
+as select EMPNO, NAME, JOBNO, EMP.DEPTNO, DEPT_NAME
+from EMP inner join DEPT on EMP.DEPTNO=DEPT.DEPTNO;
+
+
+Ερώτημα 22)
+
+1H ΕΝΤΟΛΗ:insert into GROUP_EMP values ('GREEN');
+ΑΠΟΤΕΛΕΣΜΑ:The target table GROUP_EMP of the INSERT is not insertable-into
+
+2H ΕΝΤΟΛΗ:SELECT is_updatable
+    -> FROM information_schema.views
+    -> WHERE table_name = 'EMP_DEPT_VIEW';
+ΑΠΟΤΕΛΕΣΜΑ:
++--------------+
+| is_updatable |
++--------------+
+| YES          |
++--------------+
+1 row in set (0.014 sec)
+
+
+
